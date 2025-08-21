@@ -1,6 +1,8 @@
-/*
-Place your custom CSS here
-*/
-.widget-hello-world {
-
+.table .table-content .tr-hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
 }

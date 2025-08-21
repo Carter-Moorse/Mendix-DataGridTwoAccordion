@@ -3,14 +3,14 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
-import { CSSProperties } from "react";
+import { ComponentType, CSSProperties, ReactNode } from "react";
 
 export interface NodeObserverContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    sampleText: string;
+    content?: ReactNode;
 }
 
 export interface NodeObserverPreviewProps {
@@ -24,5 +24,5 @@ export interface NodeObserverPreviewProps {
     readOnly: boolean;
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;
-    sampleText: string;
+    content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
 }

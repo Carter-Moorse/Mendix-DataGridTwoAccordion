@@ -1,9 +1,8 @@
-import { ReactElement, createElement } from "react";
-import { HelloWorldSample } from "./components/HelloWorldSample";
-import { NodeObserverPreviewProps } from "../typings/NodeObserverProps";
+import { Fragment, ReactElement, createElement } from "react";
+// import { NodeObserverPreviewProps } from "../typings/NodeObserverProps";
 
-export function preview({ sampleText }: NodeObserverPreviewProps): ReactElement {
-    return <HelloWorldSample sampleText={sampleText} />;
+export function preview(): ReactElement { //{ content }: NodeObserverPreviewProps
+    return <Fragment>{ "Contents" }</Fragment>;
 }
 
 export function getPreviewCss(): string {
