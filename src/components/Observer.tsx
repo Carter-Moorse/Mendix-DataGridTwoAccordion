@@ -1,12 +1,14 @@
-import { useEffect, useRef, RefObject } from "react";
+import { ReactElement, createElement, useEffect, useRef } from "react";
+import { NodeObserverContainerProps } from "typings/NodeObserverProps";
 
-interface ObserverProps {
-    divRef: RefObject<HTMLDivElement>,
+interface ObserverProps extends NodeObserverContainerProps {
+    open: boolean,
     onUpdate: (state: boolean) => void,
-    observeClassName: string
 }
 
-export function Observer({ divRef, onUpdate, observeClassName }: ObserverProps) {
+export function Observer(props: ObserverProps): ReactElement {
+    const divRef = useRef<HTMLDivElement>(null);
+
     const dataGridCellRef = useRef<HTMLElement | null>();
     const dataGridRowRef = useRef<HTMLElement | null>();
     const dataGridBodyRef = useRef<HTMLElement | null>();
@@ -29,7 +31,7 @@ export function Observer({ divRef, onUpdate, observeClassName }: ObserverProps) 
         all && resetGrid(node.previousSibling as HTMLElement | undefined, true);
     }
 
-    const getState = () => !!dataGridRowRef.current?.classList.contains(observeClassName);
+    const getState = () => !!dataGridRowRef.current?.classList.contains(props.sharedclass);
 
     const toggle = (isOpen: boolean) => {
         // Update column index, this could change from show/hide columns
@@ -90,12 +92,12 @@ export function Observer({ divRef, onUpdate, observeClassName }: ObserverProps) 
         // Inital state
         const state = getState();
         toggle(state);
-        onUpdate(state);
+        props.onUpdate(state);
 
         const callback: MutationCallback = () => {
             const state = getState();
             toggle(state);
-            onUpdate(state);
+            props.onUpdate(state);
         };
 
         const observer = new MutationObserver(callback);
@@ -106,4 +108,6 @@ export function Observer({ divRef, onUpdate, observeClassName }: ObserverProps) 
             resetAll();
         };
     }, [divRef]);
+
+    return <div className={props.class} ref={divRef}>{props.open && props.observercontent}</div>;
 }
