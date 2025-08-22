@@ -4,13 +4,31 @@
  * @author Mendix Widgets Framework Team
  */
 import { ComponentType, CSSProperties, ReactNode } from "react";
+import { DynamicValue, WebIcon } from "mendix";
+
+export type TypeEnum = "observer" | "trigger";
+
+export type TriggertypeEnum = "button" | "link" | "custom";
+
+export type TriggerdefaultEnum = "closed" | "open";
 
 export interface NodeObserverContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    content?: ReactNode;
+    type: TypeEnum;
+    sharedclass: string;
+    observercontent?: ReactNode;
+    triggertype: TriggertypeEnum;
+    triggercaption?: DynamicValue<string>;
+    triggertooltip?: DynamicValue<string>;
+    triggericonopen?: DynamicValue<WebIcon>;
+    triggericonclosed?: DynamicValue<WebIcon>;
+    triggerdefault: TriggerdefaultEnum;
+    triggercustom?: ReactNode;
+    triggerclassopen: DynamicValue<string>;
+    triggerclassclosed: DynamicValue<string>;
 }
 
 export interface NodeObserverPreviewProps {
@@ -24,5 +42,16 @@ export interface NodeObserverPreviewProps {
     readOnly: boolean;
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;
-    content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    type: TypeEnum;
+    sharedclass: string;
+    observercontent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    triggertype: TriggertypeEnum;
+    triggercaption: string;
+    triggertooltip: string;
+    triggericonopen: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
+    triggericonclosed: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
+    triggerdefault: TriggerdefaultEnum;
+    triggercustom: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    triggerclassopen: string;
+    triggerclassclosed: string;
 }

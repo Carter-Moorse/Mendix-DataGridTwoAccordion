@@ -8,10 +8,75 @@
     <icon/>
     <properties>
         <propertyGroup caption="General">
-            <property key="content" type="widgets" required="false">
-                <caption>Content</caption>
-                <description></description>
-            </property>
+            <propertyGroup caption="General">
+                <property key="type" type="enumeration" defaultValue="observer">
+                    <caption>Type</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="observer">Observer</enumerationValue>
+                        <enumerationValue key="trigger">Trigger</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="sharedclass" type="string" defaultValue="tr-selected">
+                    <caption>Class</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Observer">
+                <property key="observercontent" type="widgets" required="false">
+                    <caption>Content</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Trigger">
+                <property key="triggertype" type="enumeration" defaultValue="button">
+                    <caption>Type</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="button">Button</enumerationValue>
+                        <enumerationValue key="link">Link</enumerationValue>
+                        <enumerationValue key="custom">Custom</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="triggercaption" type="textTemplate" required="false">
+                    <caption>Caption</caption>
+                    <description></description>
+                </property>
+                <property key="triggertooltip" type="textTemplate" required="false">
+                    <caption>Tooltip</caption>
+                    <description></description>
+                </property>
+                <property key="triggericonopen" type="icon" required="false">
+                    <caption>Icon open</caption>
+                    <description></description>
+                </property>
+                <property key="triggericonclosed" type="icon" required="false">
+                    <caption>Icon closed</caption>
+                    <description></description>
+                </property>
+                <property key="triggerdefault" type="enumeration" defaultValue="closed">
+                    <caption>Default state</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="closed">Closed</enumerationValue>
+                        <enumerationValue key="open">Open</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="triggercustom" type="widgets" required="false">
+                    <caption>Custom</caption>
+                    <description></description>
+                </property>
+                <property key="triggerclassopen" type="expression" defaultValue="'open'">
+                    <caption>Dynamic class open</caption>
+                    <description></description>
+                    <returnType type="String" />
+                </property>
+                <property key="triggerclassclosed" type="expression" defaultValue="''">
+                    <caption>Dynamic class closed</caption>
+                    <description></description>
+                    <returnType type="String" />
+                </property>
+            </propertyGroup>
         </propertyGroup>
     </properties>
 </widget>
