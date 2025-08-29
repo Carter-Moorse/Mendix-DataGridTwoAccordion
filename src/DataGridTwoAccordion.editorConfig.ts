@@ -1,4 +1,6 @@
-import { NodeObserverPreviewProps } from "../typings/NodeObserverProps";
+import { DataGridTwoAccordionPreviewProps } from "../typings/DataGridTwoAccordionProps";
+
+import { hidePropertiesIn } from "@mendix/pluggable-widgets-tools";
 
 export type Platform = "web" | "desktop";
 
@@ -100,19 +102,45 @@ export type PreviewProps =
     | DatasourceProps;
 
 export function getProperties(
-    _values: NodeObserverPreviewProps,
+    _values: DataGridTwoAccordionPreviewProps,
     defaultProperties: Properties /* , target: Platform*/
 ): Properties {
-    // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
-    /* Example
-    if (values.myProperty === "custom") {
-        delete defaultProperties.properties.myOtherProperty;
+    if (_values.type === "observer") {
+        hidePropertiesIn(defaultProperties, _values, [
+            "triggerbuttonstyle",
+            "triggercaption",
+            "triggerclassclosed",
+            "triggerclassopen",
+            "triggercustom",
+            "triggerdefault",
+            "triggerdelay",
+            "triggericonclosed",
+            "triggericonopen",
+            "triggertooltip",
+            "triggertype"
+        ]);
+    } else {
+        hidePropertiesIn(defaultProperties, _values, ["observercontent", "observertype"]);
+
+        if (_values.triggertype === "custom") {
+            hidePropertiesIn(defaultProperties, _values, [
+                "triggerbuttonstyle",
+                "triggercaption",
+                "triggericonclosed",
+                "triggericonopen"
+            ]);
+        } else {
+            hidePropertiesIn(defaultProperties, _values, ["triggercustom"]);
+
+            if (_values.triggertype === "link") {
+                hidePropertiesIn(defaultProperties, _values, ["triggerbuttonstyle"]);
+            }
+        }
     }
-    */
     return defaultProperties;
 }
 
-// export function check(_values: NodeObserverPreviewProps): Problem[] {
+// export function check(_values: DataGridTwoAccordionPreviewProps): Problem[] {
 //     const errors: Problem[] = [];
 //     // Add errors to the above array to throw errors in Studio and Studio Pro.
 //     /* Example
@@ -127,7 +155,7 @@ export function getProperties(
 //     return errors;
 // }
 
-// export function getPreview(values: NodeObserverPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
+// export function getPreview(values: DataGridTwoAccordionPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
 //     // Customize your pluggable widget appearance for Studio Pro.
 //     return {
 //         type: "Container",
@@ -135,6 +163,6 @@ export function getProperties(
 //     }
 // }
 
-// export function getCustomCaption(values: NodeObserverPreviewProps, platform: Platform): string {
-//     return "NodeObserver";
+// export function getCustomCaption(values: DataGridTwoAccordionPreviewProps, platform: Platform): string {
+//     return "DataGridTwoAccordion";
 // }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://www.mendix.com/package/1.0/">
-    <clientModule name="NodeObserver" version="1.0.0" xmlns="http://www.mendix.com/clientModule/1.0/">
+    <clientModule name="DataGridTwoAccordion" version="1.0.0" xmlns="http://www.mendix.com/clientModule/1.0/">
         <widgetFiles>
-            <widgetFile path="NodeObserver.xml"/>
+            <widgetFile path="DataGridTwoAccordion.xml"/>
         </widgetFiles>
         <files>
-            <file path="auraq/nodeobserver"/>
+            <file path="auraq/datagridtwoaccordion"/>
         </files>
     </clientModule>
 </package>

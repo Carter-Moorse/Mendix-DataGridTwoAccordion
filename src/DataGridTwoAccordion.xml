@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="auraq.nodeobserver.NodeObserver" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+<widget id="auraq.datagridtwoaccordion.DataGridTwoAccordion" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
         supportedPlatform="Web"
         xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
-    <name>Node Observer</name>
-    <description>Watch for changes being made to the DOM tree.</description>
+    <name>Data grid 2 accordion</name>
+    <description>Add show/hide accordion data grid 2 rows</description>
     <icon/>
     <properties>
         <propertyGroup caption="General">
@@ -17,12 +17,16 @@
                         <enumerationValue key="trigger">Trigger</enumerationValue>
                     </enumerationValues>
                 </property>
-                <property key="sharedclass" type="string" defaultValue="tr-selected">
-                    <caption>Class</caption>
-                    <description></description>
-                </property>
             </propertyGroup>
             <propertyGroup caption="Observer">
+                <property key="observertype" type="enumeration" defaultValue="trigger">
+                    <caption>Type</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="trigger">Trigger (placed on same row)</enumerationValue>
+                        <enumerationValue key="onselect">On row select</enumerationValue>
+                    </enumerationValues>
+                </property>
                 <property key="observercontent" type="widgets" required="false">
                     <caption>Content</caption>
                     <description></description>
@@ -36,6 +40,19 @@
                         <enumerationValue key="button">Button</enumerationValue>
                         <enumerationValue key="link">Link</enumerationValue>
                         <enumerationValue key="custom">Custom</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="triggerbuttonstyle" type="enumeration" defaultValue="default">
+                    <caption>Style</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="default">Default</enumerationValue>
+                        <enumerationValue key="inverse">Inverse</enumerationValue>
+                        <enumerationValue key="primary">Primary</enumerationValue>
+                        <enumerationValue key="info">Info</enumerationValue>
+                        <enumerationValue key="success">Success</enumerationValue>
+                        <enumerationValue key="warning">Warning</enumerationValue>
+                        <enumerationValue key="danger">Danger</enumerationValue>
                     </enumerationValues>
                 </property>
                 <property key="triggercaption" type="textTemplate" required="false">
@@ -75,6 +92,10 @@
                     <caption>Dynamic class closed</caption>
                     <description></description>
                     <returnType type="String" />
+                </property>
+                <property key="triggerdelay" type="integer" defaultValue="0">
+                    <caption>Delay (ms)</caption>
+                    <description></description>
                 </property>
             </propertyGroup>
         </propertyGroup>

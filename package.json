@@ -1,6 +1,6 @@
 {
-  "name": "nodeobserver",
-  "widgetName": "NodeObserver",
+  "name": "datagridtwoaccordion",
+  "widgetName": "DataGridTwoAccordion",
   "version": "1.0.0",
   "description": "Watch for changes being made to the DOM tree.",
   "copyright": "© Mendix Technology BV 2022. All rights reserved.",

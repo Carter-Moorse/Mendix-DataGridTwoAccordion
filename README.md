@@ -1,4 +1,4 @@
-## NodeObserver
+## DataGridTwoAccordion
 [Watch for changes being made to the DOM tree.]
 
 ## Features
