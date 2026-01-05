@@ -1,8 +1,8 @@
-## DataGridTwoAccordion
-[Watch for changes being made to the DOM tree.]
+## Data grid 2 accordion - Mendix Pluggable Widget
+Add show/hide accordion Data grid 2 rows.
 
 ## Features
-[feature highlights]
+ - Low configuration
 
 ## Usage
 [step by step instructions]

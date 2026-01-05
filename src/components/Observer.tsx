@@ -27,12 +27,16 @@ export function Observer(props: ObserverProps): ReactElement {
                 .map(v => Number(v))) ||
         [];
 
+    const setColSpan = (span: number, node?: HTMLElement | null) =>
+        node ? (node.style.gridColumnStart = `span ${span}`) : undefined;
+    // const setColSpan = (span: number, node?: HTMLElement) => node ? node.setAttribute("data-column-span", String(span)) : undefined;
+
     const resetGrid = (node?: HTMLElement | ChildNode | null, all = false): void => {
         if (!node) {
             return;
         }
 
-        (node as HTMLElement).removeAttribute("data-column-span");
+        (node as HTMLElement).style.gridColumnStart = "";
         if (all) {
             resetGrid(node.previousSibling as HTMLElement | undefined, true);
         }
@@ -61,7 +65,7 @@ export function Observer(props: ObserverProps): ReactElement {
         const dataGridHeaderColumnSibling = dataGridHeaderColumnRef.current!.previousSibling as HTMLElement | undefined;
         dataGridHeaderColumnRef.current!.style.display = "none";
         if (dataGridHeaderColumnSibling) {
-            dataGridHeaderColumnSibling!.setAttribute("data-column-span", "2");
+            setColSpan(2, dataGridHeaderColumnSibling);
         }
         resetGrid(dataGridHeaderColumnSibling?.previousSibling, true);
 
@@ -71,25 +75,25 @@ export function Observer(props: ObserverProps): ReactElement {
         if (isOpen) {
             // Open
             dataGridCellRef.current!.style.display = "";
-            dataGridCellRef.current!.setAttribute("data-column-span", String(columnCount));
+            setColSpan(columnCount, dataGridCellRef.current);
             dataGridCellRef.current!.setAttribute("role", "row");
             if (dataGridHeaderColSelectorRef.current) {
                 dataGridHeaderColSelectorRef.current.style.display = "none";
                 if (dataGridSibling) {
-                    dataGridSibling!.setAttribute("data-column-span", "3");
+                    setColSpan(3, dataGridSibling);
                 }
             } else {
                 if (dataGridSibling) {
-                    dataGridSibling!.setAttribute("data-column-span", "2");
+                    setColSpan(2, dataGridSibling);
                 }
             }
         } else {
             // Close
             dataGridCellRef.current!.style.display = "none";
-            dataGridCellRef.current!.removeAttribute("data-column-span");
+            dataGridCellRef.current!.style.gridColumnStart = "";
             dataGridCellRef.current!.setAttribute("role", "gridcell");
             if (dataGridSibling) {
-                dataGridSibling!.setAttribute("data-column-span", "2");
+                setColSpan(2, dataGridSibling);
             }
             if (dataGridHeaderColSelectorRef.current) {
                 dataGridHeaderColSelectorRef.current.style.display = "";
@@ -105,8 +109,12 @@ export function Observer(props: ObserverProps): ReactElement {
         }
 
         updateCellRefs(divRef.current);
+        // Data grid 2 body
         dataGridBodyRef.current = dataGridRowRef.current?.parentElement;
-        dataGridHeaderRef.current = dataGridBodyRef.current?.firstChild as HTMLElement | undefined;
+        // Data grid 2 header
+        dataGridHeaderRef.current = dataGridBodyRef.current?.parentElement?.firstChild?.firstChild as
+            | HTMLElement
+            | undefined;
         if (
             !dataGridCellRef.current ||
             !dataGridRowRef.current ||
@@ -116,6 +124,7 @@ export function Observer(props: ObserverProps): ReactElement {
             return;
         }
 
+        // When data grid 2 has column selector enabled
         dataGridHeaderColSelectorRef.current = dataGridRowRef.current?.querySelector("& > .column-selector") as
             | HTMLElement
             | undefined;
