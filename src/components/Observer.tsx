@@ -1,4 +1,5 @@
 import { ReactElement, createElement, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 import { useShared } from "src/utils/sharedProps";
 import { DataGridTwoAccordionContainerProps } from "typings/DataGridTwoAccordionProps";
@@ -11,36 +12,37 @@ interface ObserverProps extends DataGridTwoAccordionContainerProps {
 
 export function Observer(props: ObserverProps): ReactElement {
     const divRef = useRef<HTMLDivElement>(null);
+    const rowRef = useRef<HTMLDivElement | null>();
+    const colRef = useRef<HTMLDivElement | null>();
 
     const { dataGridCellRef, dataGridRowRef, updateCellRefs } = useShared();
 
     const dataGridBodyRef = useRef<HTMLElement | null>();
     const dataGridHeaderRef = useRef<HTMLElement | null>();
-    const dataGridHeaderColumnRef = useRef<HTMLElement | null>();
-    const dataGridHeaderColSelectorRef = useRef<HTMLElement | null>();
 
-    const getDataPosition = (node?: HTMLElement | null): number[] =>
-        (node &&
-            node
-                .getAttribute("data-position")
-                ?.split(",")
-                .map(v => Number(v))) ||
-        [];
-
-    const setColSpan = (span: number, node?: HTMLElement | null) =>
-        node ? (node.style.gridColumnStart = `span ${span}`) : undefined;
-    // const setColSpan = (span: number, node?: HTMLElement) => node ? node.setAttribute("data-column-span", String(span)) : undefined;
-
-    const resetGrid = (node?: HTMLElement | ChildNode | null, all = false): void => {
-        if (!node) {
-            return;
+    const createRow = (span: number) => {
+        // Create new row
+        const row = rowRef.current || document.createElement("div");
+        row.classList.add("tr");
+        row.setAttribute("role", "row");
+        // ... set selected if selected
+        if (props.observertype === "onselect") {
+            row.classList.add("tr-selected");
+            row.setAttribute("aria-selected", "true");
         }
-
-        (node as HTMLElement).style.gridColumnStart = "";
-        if (all) {
-            resetGrid(node.previousSibling as HTMLElement | undefined, true);
-        }
-    };
+        // Create new column in new row
+        const col = colRef.current || document.createElement("div");
+        col.classList.add("td");
+        col.setAttribute("role", "gridcell");
+        col.setAttribute("tabindex", "-1");
+        // ... set span to full width
+        col.style.gridColumnStart = `span ${span}`
+        row.appendChild(col);
+        dataGridRowRef.current!.after(row);
+        
+        rowRef.current = row;
+        colRef.current = col;
+    }
 
     const getState = (): boolean =>
         props.observertype === "trigger"
@@ -48,59 +50,17 @@ export function Observer(props: ObserverProps): ReactElement {
             : !!dataGridRowRef.current?.classList.contains("tr-selected");
 
     const toggle = (isOpen: boolean): void => {
-        // Update column index, this could change from show/hide columns
-        const [columnIndex] = getDataPosition(dataGridCellRef.current);
-        if (columnIndex === undefined) {
-            throw Error("Could not retrieve column index from 'data-position' attribute");
-        }
-
-        dataGridHeaderColumnRef.current = (dataGridHeaderRef.current?.childNodes || [])[columnIndex] as
-            | HTMLElement
-            | undefined;
-        if (!dataGridHeaderColumnRef.current) {
-            throw Error("Could not find column header");
-        }
-
-        // Remove header
-        const dataGridHeaderColumnSibling = dataGridHeaderColumnRef.current!.previousSibling as HTMLElement | undefined;
-        dataGridHeaderColumnRef.current!.style.display = "none";
-        if (dataGridHeaderColumnSibling) {
-            setColSpan(2, dataGridHeaderColumnSibling);
-        }
-        resetGrid(dataGridHeaderColumnSibling?.previousSibling, true);
-
-        const dataGridSibling = dataGridCellRef.current?.previousSibling as HTMLElement | undefined;
         const columnCount = dataGridHeaderRef.current?.childNodes.length || 0;
 
         if (isOpen) {
             // Open
-            dataGridCellRef.current!.style.display = "";
-            setColSpan(columnCount, dataGridCellRef.current);
-            dataGridCellRef.current!.setAttribute("role", "row");
-            if (dataGridHeaderColSelectorRef.current) {
-                dataGridHeaderColSelectorRef.current.style.display = "none";
-                if (dataGridSibling) {
-                    setColSpan(3, dataGridSibling);
-                }
-            } else {
-                if (dataGridSibling) {
-                    setColSpan(2, dataGridSibling);
-                }
-            }
-        } else {
-            // Close
-            dataGridCellRef.current!.style.display = "none";
-            dataGridCellRef.current!.style.gridColumnStart = "";
-            dataGridCellRef.current!.setAttribute("role", "gridcell");
-            if (dataGridSibling) {
-                setColSpan(2, dataGridSibling);
-            }
-            if (dataGridHeaderColSelectorRef.current) {
-                dataGridHeaderColSelectorRef.current.style.display = "";
-            }
+            createRow(columnCount);
         }
-
-        resetGrid(dataGridSibling?.previousSibling, true);
+        else {
+            rowRef.current?.remove();
+            rowRef.current = null;
+            colRef.current = null;
+        }
     };
 
     useEffect(() => {
@@ -124,11 +84,6 @@ export function Observer(props: ObserverProps): ReactElement {
             return;
         }
 
-        // When data grid 2 has column selector enabled
-        dataGridHeaderColSelectorRef.current = dataGridRowRef.current?.querySelector("& > .column-selector") as
-            | HTMLElement
-            | undefined;
-
         // Inital state
         const state = getState();
         toggle(state);
@@ -145,12 +100,16 @@ export function Observer(props: ObserverProps): ReactElement {
 
         return () => {
             observer.disconnect();
+            rowRef.current?.remove();
         };
     }, [divRef]);
 
     return (
         <div className={props.class} ref={divRef}>
-            {props.open && props.observercontent}
+            {props.open && colRef.current && createPortal(
+                props.observercontent,
+                colRef.current
+            )}
         </div>
     );
 }
