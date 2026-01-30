@@ -29,7 +29,9 @@ export function Observer(props: ObserverProps): ReactElement {
         row.setAttribute("role", "row");
         // ... set selected if selected
         if (props.observertype === "onselect") {
-            props.observerselectedclass && row.classList.add("tr-selected");
+            if (props.observerselectedclass) {
+                row.classList.add("tr-selected");
+            }
             row.setAttribute("aria-selected", "true");
         }
         // Create new column in new row
@@ -39,13 +41,13 @@ export function Observer(props: ObserverProps): ReactElement {
         col.setAttribute("role", "gridcell");
         col.setAttribute("tabindex", "-1");
         // ... set span to full width
-        col.style.gridColumnStart = `span ${span}`
+        col.style.gridColumnStart = `span ${span}`;
         row.appendChild(col);
         dataGridRowRef.current!.after(row);
-        
+
         rowRef.current = row;
         colRef.current = col;
-    }
+    };
 
     const getState = (): boolean =>
         props.observertype === "trigger"
@@ -58,8 +60,7 @@ export function Observer(props: ObserverProps): ReactElement {
         if (isOpen) {
             // Open
             createRow(columnCount);
-        }
-        else {
+        } else {
             rowRef.current?.remove();
             rowRef.current = null;
             colRef.current = null;
@@ -109,10 +110,7 @@ export function Observer(props: ObserverProps): ReactElement {
 
     return (
         <div className={props.class} ref={divRef}>
-            {props.open && colRef.current && createPortal(
-                props.observercontent,
-                colRef.current
-            )}
+            {props.open && colRef.current && createPortal(props.observercontent, colRef.current)}
         </div>
     );
 }

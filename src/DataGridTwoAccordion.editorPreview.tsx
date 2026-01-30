@@ -36,14 +36,7 @@ export function preview(props: DataGridTwoAccordionPreviewProps): ReactElement {
             );
         } else if (props.triggertype === "link") {
             return (
-                <a
-                    className={ClassNames(
-                        "btn",
-                        props.triggerclassopen,
-                        props.class
-                    )}
-                    title={props.triggertooltip}
-                >
+                <a className={ClassNames("btn", props.triggerclassopen, props.class)} title={props.triggertooltip}>
                     {content}
                 </a>
             );

@@ -120,18 +120,13 @@ export function getProperties(
             "triggertype"
         ]);
         if (_values.observertype === "onselect") {
-            hidePropertiesIn(defaultProperties, _values, [
-                "attributename"
-            ]);
-        }
-        else {
-            hidePropertiesIn(defaultProperties, _values, [
-                "observerselectedclass"
-            ]);
+            hidePropertiesIn(defaultProperties, _values, ["attributename"]);
+        } else {
+            hidePropertiesIn(defaultProperties, _values, ["observerselectedclass"]);
         }
     } else {
         hidePropertiesIn(defaultProperties, _values, [
-            "observercontent", 
+            "observercontent",
             "observertype",
             "observercolclassopen",
             "observerrowclassopen",

@@ -8,9 +8,7 @@ export function DataGridTwoAccordion(props: DataGridTwoAccordionContainerProps):
     const [open, setOpen] = useState(props.triggeropendefault.value ?? false);
 
     if (props.type === "observer") {
-        return (
-            <Observer open={open} onUpdate={state => setOpen(state)} {...props} />
-        );
+        return <Observer open={open} onUpdate={state => setOpen(state)} {...props} />;
     } else {
         return <Trigger open={open} onClick={state => setOpen(state)} {...props} />;
     }
