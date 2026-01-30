@@ -1,7 +1,7 @@
 <img src="/assets/icon.svg" height="64px" />
 
 # Data Grid 2 Accordion - Mendix Pluggable Widget
-Add show/hide accordion Data grid 2 rows.
+Add show/hide accordion Data Grid 2 rows.
 
 See [Demo](https://datagridtwoaccordiondemo-sandbox.mxapps.io/).
 
