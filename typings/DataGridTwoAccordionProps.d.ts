@@ -14,27 +14,29 @@ export type TriggertypeEnum = "button" | "link" | "custom";
 
 export type TriggerbuttonstyleEnum = "default" | "inverse" | "primary" | "info" | "success" | "warning" | "danger";
 
-export type TriggerdefaultEnum = "closed" | "open";
-
 export interface DataGridTwoAccordionContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
     type: TypeEnum;
+    attributename: string;
     observertype: ObservertypeEnum;
     observercontent?: ReactNode;
+    observerselectedclass: boolean;
+    observerrowclassopen: DynamicValue<string>;
+    observercolclassopen: DynamicValue<string>;
     triggertype: TriggertypeEnum;
     triggerbuttonstyle: TriggerbuttonstyleEnum;
     triggercaption?: DynamicValue<string>;
     triggertooltip?: DynamicValue<string>;
-    triggericonopen?: DynamicValue<WebIcon>;
-    triggericonclosed?: DynamicValue<WebIcon>;
-    triggerdefault: TriggerdefaultEnum;
+    triggeropendefault: DynamicValue<boolean>;
     triggercustom?: ReactNode;
-    triggerclassopen: DynamicValue<string>;
-    triggerclassclosed: DynamicValue<string>;
     triggerdelay: number;
+    triggericonopen?: DynamicValue<WebIcon>;
+    triggerclassopen: DynamicValue<string>;
+    triggericonclosed?: DynamicValue<WebIcon>;
+    triggerclassclosed: DynamicValue<string>;
 }
 
 export interface DataGridTwoAccordionPreviewProps {
@@ -49,17 +51,21 @@ export interface DataGridTwoAccordionPreviewProps {
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;
     type: TypeEnum;
+    attributename: string;
     observertype: ObservertypeEnum;
     observercontent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    observerselectedclass: boolean;
+    observerrowclassopen: string;
+    observercolclassopen: string;
     triggertype: TriggertypeEnum;
     triggerbuttonstyle: TriggerbuttonstyleEnum;
     triggercaption: string;
     triggertooltip: string;
-    triggericonopen: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
-    triggericonclosed: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
-    triggerdefault: TriggerdefaultEnum;
+    triggeropendefault: string;
     triggercustom: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
-    triggerclassopen: string;
-    triggerclassclosed: string;
     triggerdelay: number | null;
+    triggericonopen: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
+    triggerclassopen: string;
+    triggericonclosed: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
+    triggerclassclosed: string;
 }

@@ -8,7 +8,7 @@ import { DataGridTwoAccordionContainerProps } from "typings/DataGridTwoAccordion
 interface TriggerProps extends DataGridTwoAccordionContainerProps {
     open: boolean;
     onClick: (state: boolean) => void;
-    attributeName: string;
+    attributename: string;
 }
 
 export function Trigger(props: TriggerProps): ReactElement {
@@ -26,14 +26,14 @@ export function Trigger(props: TriggerProps): ReactElement {
         }
         updateCellRefs(divRef.current || buttonRef.current || linkRef.current);
 
-        const state = props.triggerdefault === "open" || getState();
+        const state = props.open || getState();
         toggle(state);
     }, [divRef, buttonRef, linkRef]);
 
-    const getState = (): boolean => dataGridRowRef.current?.getAttribute(props.attributeName) === "true";
+    const getState = (): boolean => dataGridRowRef.current?.getAttribute(props.attributename) === "true";
 
     const toggle = (isOpen: boolean): void => {
-        dataGridRowRef.current?.setAttribute(props.attributeName, isOpen ? "true" : "false");
+        dataGridRowRef.current?.setAttribute(props.attributename, isOpen ? "true" : "false");
         props.onClick(isOpen);
     };
 

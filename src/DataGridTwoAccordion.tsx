@@ -4,16 +4,14 @@ import { Observer } from "./components/Observer";
 import { Trigger } from "./components/Trigger";
 import "./ui/DataGridTwoAccordion.css";
 
-const COMMONATTRIBUTENAME = "data-panel-open";
-
 export function DataGridTwoAccordion(props: DataGridTwoAccordionContainerProps): ReactElement {
-    const [open, setOpen] = useState(props.triggerdefault === "open");
+    const [open, setOpen] = useState(props.triggeropendefault.value ?? false);
 
     if (props.type === "observer") {
         return (
-            <Observer open={open} onUpdate={state => setOpen(state)} attributeName={COMMONATTRIBUTENAME} {...props} />
+            <Observer open={open} onUpdate={state => setOpen(state)} {...props} />
         );
     } else {
-        return <Trigger open={open} onClick={state => setOpen(state)} attributeName={COMMONATTRIBUTENAME} {...props} />;
+        return <Trigger open={open} onClick={state => setOpen(state)} {...props} />;
     }
 }

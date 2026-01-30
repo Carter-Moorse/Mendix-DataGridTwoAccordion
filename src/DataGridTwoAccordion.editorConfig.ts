@@ -112,15 +112,31 @@ export function getProperties(
             "triggerclassclosed",
             "triggerclassopen",
             "triggercustom",
-            "triggerdefault",
+            "triggeropendefault",
             "triggerdelay",
             "triggericonclosed",
             "triggericonopen",
             "triggertooltip",
             "triggertype"
         ]);
+        if (_values.observertype === "onselect") {
+            hidePropertiesIn(defaultProperties, _values, [
+                "attributename"
+            ]);
+        }
+        else {
+            hidePropertiesIn(defaultProperties, _values, [
+                "observerselectedclass"
+            ]);
+        }
     } else {
-        hidePropertiesIn(defaultProperties, _values, ["observercontent", "observertype"]);
+        hidePropertiesIn(defaultProperties, _values, [
+            "observercontent", 
+            "observertype",
+            "observercolclassopen",
+            "observerrowclassopen",
+            "observerselectedclass"
+        ]);
 
         if (_values.triggertype === "custom") {
             hidePropertiesIn(defaultProperties, _values, [

@@ -14,11 +14,7 @@ export function preview(props: DataGridTwoAccordionPreviewProps): ReactElement {
     } else {
         const content = (
             <Fragment>
-                {props.triggerdefault === "open" ? (
-                    <Icon icon={props.triggericonopen} altText="Opened" />
-                ) : (
-                    <Icon icon={props.triggericonclosed} altText="Closed" />
-                )}
+                <Icon icon={props.triggericonopen} altText="Opened" />
                 {" " + props.triggercaption}
             </Fragment>
         );
@@ -30,7 +26,7 @@ export function preview(props: DataGridTwoAccordionPreviewProps): ReactElement {
                     className={ClassNames(
                         "btn",
                         getButtonStyle(props.triggerbuttonstyle),
-                        props.triggerdefault === "open" ? props.triggerclassopen : props.triggerclassclosed,
+                        props.triggerclassopen,
                         props.class
                     )}
                     title={props.triggertooltip}
@@ -43,7 +39,7 @@ export function preview(props: DataGridTwoAccordionPreviewProps): ReactElement {
                 <a
                     className={ClassNames(
                         "btn",
-                        props.triggerdefault === "open" ? props.triggerclassopen : props.triggerclassclosed,
+                        props.triggerclassopen,
                         props.class
                     )}
                     title={props.triggertooltip}

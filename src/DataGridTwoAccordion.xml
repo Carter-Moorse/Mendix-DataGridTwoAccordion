@@ -17,6 +17,10 @@
                         <enumerationValue key="trigger">Trigger</enumerationValue>
                     </enumerationValues>
                 </property>
+                <property key="attributename" type="string" defaultValue="data-panel-open">
+                    <caption>Attribute name</caption>
+                    <description>Name of attribute to trigger state</description>
+                </property>
             </propertyGroup>
             <propertyGroup caption="Observer">
                 <property key="observertype" type="enumeration" defaultValue="trigger">
@@ -30,6 +34,20 @@
                 <property key="observercontent" type="widgets" required="false">
                     <caption>Content</caption>
                     <description></description>
+                </property>
+                <property key="observerselectedclass" type="boolean" defaultValue="true">
+                    <caption>Use row selected class?</caption>
+                    <description></description>
+                </property>
+                <property key="observerrowclassopen" type="expression" defaultValue="''">
+                    <caption>Row class</caption>
+                    <description></description>
+                    <returnType type="String" />
+                </property>
+                <property key="observercolclassopen" type="expression" defaultValue="''">
+                    <caption>Column class</caption>
+                    <description></description>
+                    <returnType type="String" />
                 </property>
             </propertyGroup>
             <propertyGroup caption="Trigger">
@@ -63,39 +81,40 @@
                     <caption>Tooltip</caption>
                     <description></description>
                 </property>
-                <property key="triggericonopen" type="icon" required="false">
-                    <caption>Icon open</caption>
+                <property key="triggeropendefault" type="expression" defaultValue="false">
+                    <caption>Open by default?</caption>
                     <description></description>
-                </property>
-                <property key="triggericonclosed" type="icon" required="false">
-                    <caption>Icon closed</caption>
-                    <description></description>
-                </property>
-                <property key="triggerdefault" type="enumeration" defaultValue="closed">
-                    <caption>Default state</caption>
-                    <description></description>
-                    <enumerationValues>
-                        <enumerationValue key="closed">Closed</enumerationValue>
-                        <enumerationValue key="open">Open</enumerationValue>
-                    </enumerationValues>
+                    <returnType type="Boolean" />
                 </property>
                 <property key="triggercustom" type="widgets" required="false">
                     <caption>Custom</caption>
                     <description></description>
                 </property>
-                <property key="triggerclassopen" type="expression" defaultValue="'open'">
-                    <caption>Dynamic class open</caption>
-                    <description></description>
-                    <returnType type="String" />
-                </property>
-                <property key="triggerclassclosed" type="expression" defaultValue="''">
-                    <caption>Dynamic class closed</caption>
-                    <description></description>
-                    <returnType type="String" />
-                </property>
                 <property key="triggerdelay" type="integer" defaultValue="0">
                     <caption>Delay (ms)</caption>
                     <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Open">
+                <property key="triggericonopen" type="icon" required="false">
+                    <caption>Trigger icon open</caption>
+                    <description></description>
+                </property>
+                <property key="triggerclassopen" type="expression" defaultValue="'open'">
+                    <caption>Trigger class open</caption>
+                    <description></description>
+                    <returnType type="String" />
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Closed">
+                <property key="triggericonclosed" type="icon" required="false">
+                    <caption>Trigger icon closed</caption>
+                    <description></description>
+                </property>
+                <property key="triggerclassclosed" type="expression" defaultValue="''">
+                    <caption>Trigger class closed</caption>
+                    <description></description>
+                    <returnType type="String" />
                 </property>
             </propertyGroup>
         </propertyGroup>

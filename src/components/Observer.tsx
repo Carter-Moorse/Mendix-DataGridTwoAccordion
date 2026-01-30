@@ -1,5 +1,6 @@
 import { ReactElement, createElement, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import ClassNames from "classnames";
 
 import { useShared } from "src/utils/sharedProps";
 import { DataGridTwoAccordionContainerProps } from "typings/DataGridTwoAccordionProps";
@@ -7,7 +8,7 @@ import { DataGridTwoAccordionContainerProps } from "typings/DataGridTwoAccordion
 interface ObserverProps extends DataGridTwoAccordionContainerProps {
     open: boolean;
     onUpdate: (state: boolean) => void;
-    attributeName: string;
+    attributename: string;
 }
 
 export function Observer(props: ObserverProps): ReactElement {
@@ -23,16 +24,18 @@ export function Observer(props: ObserverProps): ReactElement {
     const createRow = (span: number) => {
         // Create new row
         const row = rowRef.current || document.createElement("div");
-        row.classList.add("tr");
+        const rowClass = props.observerrowclassopen.value;
+        row.setAttribute("class", ClassNames("tr", rowClass));
         row.setAttribute("role", "row");
         // ... set selected if selected
         if (props.observertype === "onselect") {
-            row.classList.add("tr-selected");
+            props.observerselectedclass && row.classList.add("tr-selected");
             row.setAttribute("aria-selected", "true");
         }
         // Create new column in new row
         const col = colRef.current || document.createElement("div");
-        col.classList.add("td");
+        const colClass = props.observercolclassopen.value;
+        col.setAttribute("class", ClassNames("td", colClass));
         col.setAttribute("role", "gridcell");
         col.setAttribute("tabindex", "-1");
         // ... set span to full width
@@ -46,7 +49,7 @@ export function Observer(props: ObserverProps): ReactElement {
 
     const getState = (): boolean =>
         props.observertype === "trigger"
-            ? dataGridRowRef.current?.getAttribute(props.attributeName) === "true"
+            ? dataGridRowRef.current?.getAttribute(props.attributename) === "true"
             : !!dataGridRowRef.current?.classList.contains("tr-selected");
 
     const toggle = (isOpen: boolean): void => {
