@@ -12,7 +12,7 @@ See [Demo](https://datagridtwoaccordiondemo-sandbox.mxapps.io/).
 
 ## Usage
 > [!Warning]
-> Requires Mendix Studio Pro 9.17 or later
+> Requires Mendix Studio Pro 10.24 or later
 
  1. Add the widget to your project
  2. Drop the widget into a Data Grid 2 custom content column
