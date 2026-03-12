@@ -14,13 +14,15 @@ See [Demo](https://datagridtwoaccordiondemo-sandbox.mxapps.io/).
 > [!Warning]
 > Requires Mendix Studio Pro 10.24 or later
 
- 1. Add the widget to your project
- 2. Drop the widget into a Data Grid 2 custom content column
- 3. Configure the 'Type' to 'Observer'
- 4. Configure the Observer 'Type' to set when it will open/close:
-     - 'Trigger' - using another Data Grid 2 Accordion set to trigger
-     - 'On row select' - using Data Grid 2 row selected (Data Grid 2 'Selection' needs to be 'Single' or 'Multi')
- 5. If configured to 'Trigger': Drop another widget into the same Data Grid 2, on another custom content column
+ 1. Add the widget to your project.
+ 2. Place the widget inside a Data Grid 2 **Custom Content** column.
+ 3. Set the widget's **Type** to **Observer**.
+ 4. Choose how the observer should open or close a row:
+     - **Trigger** — the row opens/closes when another Accordion widget (set to Trigger mode) activates it.
+     - **On row select** — the row opens/closes based on the Data Grid 2 row selection.
+       (Note: Data Grid 2 **Selection** must be set to **Single** or **Multi**.)
+ 5. **If using Trigger mode:**
+    Add a second Accordion widget (set to Trigger) to another **Custom Content** column within the same Data Grid 2. This widget will act as the button/link/custom trigger for toggling the row state.
 
 ## Issues, suggestions and feature requests
 Please report any issues to [Mendix-DataGridTwoAccordion/issues](https://github.com/Carter-Moorse/Mendix-DataGridTwoAccordion/issues)
