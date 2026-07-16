@@ -100,7 +100,7 @@ export function Observer(props: ObserverProps): ReactElement {
         };
 
         const observer = new MutationObserver(callback);
-        observer.observe(dataGridRowRef.current, { attributes: true, childList: true, subtree: false });
+        observer.observe(dataGridRowRef.current, { attributes: true, childList: true, subtree: true });
 
         return () => {
             observer.disconnect();

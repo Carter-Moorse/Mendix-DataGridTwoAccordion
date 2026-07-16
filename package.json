@@ -1,7 +1,7 @@
 {
   "name": "datagridtwoaccordion",
   "widgetName": "DataGridTwoAccordion",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Watch for changes being made to the DOM tree.",
   "copyright": "© AuraQ Limited 2026. All rights reserved.",
   "author": "Carter Moorse",
